@@ -27,8 +27,18 @@ export default defineConfig({
       output: {
         entryFileNames: `assets/[name].js`,
         chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[hash].[ext]`,
+        assetFileNames: `assets/[name].[ext]`,
       },
     },
+  },
+  configureServer: app => {
+    app.use(
+      require("sass").middleware({
+        src: __dirname,
+        dest: __dirname,
+        outputStyle: "compressed",
+        prefix: "/",
+      })
+    );
   },
 });

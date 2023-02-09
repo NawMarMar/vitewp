@@ -4,11 +4,6 @@
   $TEMPLATE_RELATIVE_PATH = parse_url($TEMPLATE_URI, PHP_URL_PATH);
 ?>
 
-<div id="primary" class="content-area">
-    <main id="main" class="site-main">
-        <div id="app"></div>
-    </main><!-- #main -->
-</div><!-- #primary -->
 
 
 <?php
