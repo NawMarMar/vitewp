@@ -284,9 +284,19 @@ function register_experience_meta_fields(){
 add_action( 'init', 'my_book_cpt' );
 function my_book_cpt() {
     $args = array(
-      'public'       => true,
-      'show_in_rest' => true,
-      'label'        => 'Books'
+      	'public'       => true,
+	  	'show_in_rest'       => true,
+    	// 'rest_base'          => 'books',
+    	// 'rest_controller_class' => 'WP_REST_Posts_Controller',
+      	'label'        => 'Books'
     );
     register_post_type( 'book', $args );
 }
+// function my_plugin_rest_route_for_post( $route, $post ) {
+//     if ( $post->post_type === 'book' ) {
+//         $route = '/wp/v2/books/' . $post->ID;
+//     }
+
+//     return $route;
+// }
+// add_filter( 'rest_route_for_post', 'my_plugin_rest_route_for_post', 10, 2 );

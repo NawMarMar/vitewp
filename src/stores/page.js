@@ -10,32 +10,13 @@ export const usePageStore = defineStore('page', () => {
         _page.value = page
     }
 
-    const getContentPage = async (postName) => {
-        const response = await API.page.getContent(postName) 
+    const getContentPage = async (pageName) => {
+        const response = await API.page.getContent(pageName) 
         storePage(response[0])
     }
 
     return {
         _page,
-        getContentPage
-    }
-
-})
-export const usePostStore = defineStore('post', () => {
-
-    const _post = ref(null)
-
-    const storePost = (post) => {
-        _post.value = post
-    }
-
-    const getContentPost = async (book) => {
-        const response = await API.post.getContent(book) 
-        storePost(response[0])
-    }
-
-    return {
-        _post,
         getContentPage
     }
 

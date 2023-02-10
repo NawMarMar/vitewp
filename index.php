@@ -10,6 +10,7 @@
     </main><!-- #main -->
 </div><!-- #primary -->
 
+<!-- <script type="module" src="<?php echo $TEMPLATE_RELATIVE_PATH; ?>/dist/assets/main.js"></script> -->
 
 <?php
 get_footer();

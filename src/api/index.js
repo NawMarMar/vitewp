@@ -8,8 +8,8 @@ export const API = {
         }
     },
     'post': {
-        'getContent': async (postName) => {
-            const { data } = await axios.get(`http://vue.local/wp-json/wp/v2/types=book`)
+        'getPosts': async (postType) => {
+            const { data } = await axios.get(`http://vue.local/wp-json/wp/v2/${postType}`)
             return data
         }
     }
