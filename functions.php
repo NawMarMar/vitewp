@@ -281,22 +281,33 @@ function register_experience_meta_fields(){
  *
  * Based on example at: https://codex.wordpress.org/Function_Reference/register_post_type
  */
+add_post_type_support( 'book', 'thumbnail' );   
 add_action( 'init', 'my_book_cpt' );
 function my_book_cpt() {
     $args = array(
-      	'public'       => true,
-	  	'show_in_rest'       => true,
-    	// 'rest_base'          => 'books',
-    	// 'rest_controller_class' => 'WP_REST_Posts_Controller',
-      	'label'        => 'Books'
+      	'public' => true,
+	  	'show_in_rest' => true,
+		'has_archive' => true,
+      	'label' => 'Books'
     );
     register_post_type( 'book', $args );
 }
-// function my_plugin_rest_route_for_post( $route, $post ) {
-//     if ( $post->post_type === 'book' ) {
-//         $route = '/wp/v2/books/' . $post->ID;
-//     }
 
-//     return $route;
-// }
-// add_filter( 'rest_route_for_post', 'my_plugin_rest_route_for_post', 10, 2 );
+add_action( 'rest_api_init', 'create_api_posts_meta_field' );
+function create_api_posts_meta_field() {
+  register_rest_field( 'book', 'feature_image', array(
+         'get_callback'    => 'get_post_meta_for_api',
+		 'update_callback' => null,
+         'schema'          => null,
+      )
+  );
+}
+//Use the post ID to query the image and add it to your payload
+function get_post_meta_for_api( $object ) {
+	$post_id = $object['id'];
+	$post_meta = get_post_meta( $post_id );
+	$post_image = get_post_thumbnail_id( $post_id );      
+	$post_meta["source_url"] = wp_get_attachment_image_src( $post_image, 'original' )[0];
+
+	return $post_meta;
+  }

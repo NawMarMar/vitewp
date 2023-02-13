@@ -15,15 +15,22 @@ watchEffect(() => {
 </script>
 
 <template>
-    <div v-if="pageContent">
+  <template v-if="pageContent">
+    <div class="page-content">
       <h1>{{ pageContent.title.rendered }}</h1>
       <div v-html="pageContent.content.rendered"></div>
-      <pre>{{ pageContent }}</pre>
+      <div><img :src="pageContent.featured_image.src" alt="" /></div>
     </div>
+    <!-- <pre>{{ pageContent }}</pre> -->
+  </template>
+  <template v-else>Loading...</template>
 </template>
 <style lang="scss" scoped>
 h1 {
   font-size: 50px;
   margin-bottom: 50px;
+}
+img {
+  max-width: 300px;
 }
 </style>

@@ -5,38 +5,38 @@ import { usePostStore } from "../../stores/post";
 const postStore = usePostStore();
 postStore.getPosts("book")
 
-const posts = ref("");
+const post = ref("");
 
 watchEffect(() => {
   if (postStore._posts !== null) {
-    posts.value = postStore._posts;
+    post.value = postStore._posts;
   }
 }, [postStore._posts]);
+
+// VueMeta({
+//   title: posts.title.rendered,
+// });
+
 </script>
 
 <template>
   
-  <div v-for="post in posts" class="wrap">
+
+  <template v-if="post">
     <h1>{{ post.title.rendered }}</h1>
-    <div>{{ new Date(post.date).toLocaleDateString("ja-JP")}}</div>
+    <div>{{ new Date(posts.date_gmt).toLocaleDateString() }}</div>
     <div v-html="post.content.rendered"></div>
-    <figure><img v-if="post._links['wp:featuredmedia']" :src="post.feature_image.source_url" alt=""></figure>
-    <div><a :href="post.link">More</a></div>
-  </div>
+  </template>
+  <template v-else>Loading...</template>
   <!-- <pre>{{posts}}</pre> -->
 </template>
 
 <style lang="scss" scoped>
-.wrap{
-  margin: 50px;
-}
 h1 {
   font-size: 50px;
   margin-bottom: 50px;
 }
 a {
-  display: inline-block;
-  padding: 20px 0;
   color: red;
   font-size: 18px;
   text-decoration: underline;
