@@ -264,50 +264,73 @@ remove_action('admin_print_scripts', 'print_emoji_detection_script');// 絵文�
 remove_action('admin_print_styles', 'print_emoji_styles');// 絵文字に関するCSS
 
 
-// add meta scripts
-add_action( 'rest_api_init', 'register_experience_meta_fields');
-function register_experience_meta_fields(){
-
-    register_meta( 'page', 'username123', array(
-        'type' => 'string',
-        'single' => true,
-        'show_in_rest' => true
-    ));
-
-}
-
-/**
- * Register a book post type, with REST API support
- *
- * Based on example at: https://codex.wordpress.org/Function_Reference/register_post_type
- */
-add_post_type_support( 'book', 'thumbnail' );   
-add_action( 'init', 'my_book_cpt' );
-function my_book_cpt() {
-    $args = array(
-      	'public' => true,
-	  	'show_in_rest' => true,
-		'has_archive' => true,
-      	'label' => 'Books'
-    );
-    register_post_type( 'book', $args );
-}
-
-add_action( 'rest_api_init', 'create_api_posts_meta_field' );
-function create_api_posts_meta_field() {
-  register_rest_field( 'book', 'feature_image', array(
-         'get_callback'    => 'get_post_meta_for_api',
+// for featured image blog pst rest api
+add_action( 'rest_api_init', 'blog_post_field' );
+function blog_post_field() {
+  register_rest_field( 'blog', 'featured_image', array(
+         'get_callback'    => 'get_image_src_blog',
 		 'update_callback' => null,
          'schema'          => null,
       )
   );
 }
 //Use the post ID to query the image and add it to your payload
-function get_post_meta_for_api( $object ) {
+function get_image_src_blog( $object ) {
+	$image_id=get_post_thumbnail_id();
+	$image_url = wp_get_attachment_image_src($image_id,'original');
+	$image_url=$image_url[0];
+	return $image_url;
+}
+
+// for featured image news pst rest api
+add_action( 'rest_api_init', 'news_post_field' );
+  function news_post_field() {
+	register_rest_field( 'news', 'featured_image', array(
+		   'get_callback'    => 'get_image_src_news',
+		   'update_callback' => null,
+		   'schema'          => null,
+		)
+	);
+  }
+  
+function get_image_src_news( $object ) {
+	$image_id=get_post_thumbnail_id();
+	$image_url = wp_get_attachment_image_src($image_id,'original');
+	$image_url=$image_url[0];
+	return $image_url;
+}
+
+// for all custom fields
+add_action( 'rest_api_init', 'create_custom_fields' );
+function create_custom_fields() {
+	register_rest_field(
+		['page','blog'], // add post types or custom taxes in the array
+		'custom_fields', // name of the field in the rest
+		array(
+			'get_callback' => 'get_custom_field',
+			'update_callback' => null,
+			'schema' => null,
+		)
+	);
+}
+
+function get_custom_field( $object ) {
 	$post_id = $object['id'];
 	$post_meta = get_post_meta( $post_id );
-	$post_image = get_post_thumbnail_id( $post_id );      
-	$post_meta["source_url"] = wp_get_attachment_image_src( $post_image, 'original' )[0];
+	// return $post_meta;
 
-	return $post_meta;
-  }
+	$custom_fields = [];
+	foreach ( $post_meta as $key => $value ) {
+		if( strpos($key, '_') === 0 ) {
+			continue;
+		}
+		$custom_fields[$key] = $value[0];
+	}
+
+	// add custom image url
+	if(isset ($custom_fields['image'])) {
+		$custom_fields['image_url'] = wp_get_attachment_url($custom_fields['image']);
+	}
+
+	return $custom_fields;
+}

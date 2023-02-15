@@ -3,7 +3,8 @@
         <ul>
             <li><router-link to="/">Home</router-link></li>
             <li><router-link to="/about">About</router-link></li>
-            <li><router-link to="/book">Book</router-link></li>
+            <li><router-link to="/blog">Blog</router-link></li>
+            <li><router-link to="/news">News</router-link></li>
         </ul>
     </header>
 </template>
@@ -15,7 +16,7 @@ export default {
 <style lang="scss" scoped>
 
 ul {
-    padding: 50px 0;
+    margin: 50px;
     display: flex;
     li {
         font-size: 20px;

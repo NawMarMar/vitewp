@@ -18,19 +18,28 @@ watchEffect(() => {
   <template v-if="pageContent">
     <div class="page-content">
       <h1>{{ pageContent.title.rendered }}</h1>
-      <div v-html="pageContent.content.rendered"></div>
-      <div><img :src="pageContent.featured_image.src" alt="" /></div>
+      <div v-html="pageContent.content.rendered" class="content-txt"></div>
+      <figure><img :src="pageContent.featured_image.src" alt="" /></figure>
+      <p>{{pageContent.custom_fields.custom_fields_test["0"]}}</p>
     </div>
     <!-- <pre>{{ pageContent }}</pre> -->
   </template>
   <template v-else>Loading...</template>
 </template>
 <style lang="scss" scoped>
+.page-content {
+  margin: 50px;
+}
 h1 {
   font-size: 50px;
   margin-bottom: 50px;
 }
-img {
-  max-width: 300px;
+.content-txt,p {
+  font-size: 16px;
+}
+
+figure {
+  margin-top: 30px;
+  max-width: 500px;
 }
 </style>
