@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/views/page/Home.vue";
 import AboutPage from "@/views/page/About.vue";
+import ContactPage from "@/views/page/Contact.vue";
 import BlogPost from "@/views/archive/Blog.vue";
 import BlogSingle from "@/views/single/BlogDetail.vue";
 import NewsPost from "@/views/archive/News.vue";
@@ -38,6 +39,11 @@ const router = createRouter({
       path: "/news/:id",
       name: "newsSingle",
       component: NewsSingle,
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: ContactPage,
     },
   ],
 });

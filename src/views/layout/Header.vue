@@ -5,6 +5,7 @@
             <li><router-link to="/about">About</router-link></li>
             <li><router-link to="/blog">Blog</router-link></li>
             <li><router-link to="/news">News</router-link></li>
+            <li><router-link to="/contact">Contact</router-link></li>
         </ul>
     </header>
 </template>

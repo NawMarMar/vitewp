@@ -25,4 +25,12 @@ export const API = {
       return data;
     },
   },
+  form: {
+    getData: async(formName) => {
+      const { data } = await axios.get(
+        `http://vue.local/wp-json/wp/v2/pages?slug=${formName}`
+      );
+      return data;
+    }
+  }
 };

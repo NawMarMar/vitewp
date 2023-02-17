@@ -30,7 +30,7 @@ watchEffect(() => {
       </figure>
       <p class="author-name">{{post.custom_fields.name}}</p>
       <p class="description">{{post.custom_fields.description}}</p>
-      <div class="information">
+      <div class="custom-fields">
       <figure>
         <img :src="post.custom_fields.image_url" alt="">
       </figure>
@@ -40,7 +40,7 @@ watchEffect(() => {
     </div>
   </template>
   <template v-else>Loading...</template>
-  <pre>{{posts}}</pre>
+  <!-- <pre>{{posts}}</pre> -->
 </template>
 
 <style lang="scss" scoped>

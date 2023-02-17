@@ -334,3 +334,57 @@ function get_custom_field( $object ) {
 
 	return $custom_fields;
 }
+
+add_action( 'cfdb7_before_save', 'my_cf7_data' );
+function my_cf7_data( $contact_form ) {
+	$title = $contact_form->title;
+
+	if($title === 'contact-form') {
+		$submission = WPCF7_Submission::get_instance();
+
+		if( $submission ) {
+			$posted_data = $submission->get_posted_data();
+
+			$name = $posted_data['your-name'];
+			$email = $posted_data['your-email'];
+			$subject = $posted_data['your-subject'];
+			$message = $posted_data['your-message'];
+
+			var_dump($name);
+			var_dump($email);
+			var_dump($subject);
+			var_dump($message);
+
+			wp_die;
+
+			// $url = 'http://vue.local/wp-json/contact-form-7/v1/';
+
+            // $args = array (
+			// 	'method' => 'POST',
+            //     'body' => array(
+            //         'name' => $name,
+            //         'email' => $email,
+            //         'message' => $message,
+                    
+            //     )
+
+            // );
+
+            // wp_remote_post( $url, $args);
+
+            // return; 
+		}
+	}
+     
+}
+
+
+add_filter('wpcf7_form_action_url', 'wpcf7_custom_form_action_url');
+function wpcf7_custom_form_action_url()
+{
+    $cf7forms = WPCF7_ContactForm::get_current();
+    $Form = $cf7forms -> id;
+	return "/wp-json/contact-form-7/v1/contact-forms/$Form/feedback";
+
+}
+
