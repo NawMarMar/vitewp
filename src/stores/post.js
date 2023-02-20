@@ -17,12 +17,12 @@ export const usePostStore = defineStore('posts', () => {
     }
 
     const getPosts = async (postType) => {
-        const response = await API.post.getPosts(postType);
+        const response = await API.posts.getPosts(postType);
         storePosts(response)
     }
 
     const getPost = async (postType,postId) => {
-        const response = await API.single.getPost(postType,postId);
+        const response = await API.post.getPost(postType,postId);
         storePost(response)
     }
 

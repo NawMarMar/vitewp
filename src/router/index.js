@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/views/page/Home.vue";
 import AboutPage from "@/views/page/About.vue";
-import ContactPage from "@/views/page/Contact.vue";
+import ContactPage from "@/views/page/ContactForm.vue";
 import BlogPost from "@/views/archive/Blog.vue";
 import BlogSingle from "@/views/single/BlogDetail.vue";
 import NewsPost from "@/views/archive/News.vue";

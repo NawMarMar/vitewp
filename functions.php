@@ -339,7 +339,7 @@ function get_custom_field( $object ) {
 // function my_cf7_data( $contact_form ) {
 // 	$title = $contact_form->title;
 
-// 	if($title === 'contact-form') {
+// 	if($title === 'Contact1') {
 // 		$submission = WPCF7_Submission::get_instance();
 
 // 		if( $submission ) {
@@ -379,12 +379,11 @@ function get_custom_field( $object ) {
 // }
 
 
-add_filter('wpcf7_form_action_url', 'wpcf7_custom_form_action_url');
-function wpcf7_custom_form_action_url()
-{
-    $cf7forms = WPCF7_ContactForm::get_current();
-    $Form = $cf7forms -> id;
-	return "/wp-json/contact-form-7/v1/contact-forms/$Form/feedback";
+// add_filter('wpcf7_form_action_url', 'wpcf7_custom_form_action_url');
+// function wpcf7_custom_form_action_url()
+// {
+//     $cf7forms = WPCF7_ContactForm::get_current();
+//     $Form = $cf7forms -> id;
+// 	return "/wp-json/contact-form-7/v1/contact-forms/$Form/feedback";
 
-}
-
+// }

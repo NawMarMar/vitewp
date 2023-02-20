@@ -9,7 +9,7 @@ export const API = {
       return data;
     },
   },
-  post: {
+  posts: {
     getPosts: async (postType) => {
       const { data } = await axios.get(
         `http://vue.local/wp-json/wp/v2/${postType}`
@@ -17,7 +17,7 @@ export const API = {
       return data;
     },
   },
-  single: {
+  post: {
     getPost: async (postType,postId) => {
       const { data } = await axios.get(
         `http://vue.local/wp-json/wp/v2/${postType}/${postId}`
@@ -26,9 +26,9 @@ export const API = {
     },
   },
   form: {
-    getData: async(formName) => {
+    getData: async(formId) => {
       const { data } = await axios.get(
-        `http://vue.local/wp-json/wp/v2/pages?slug=${formName}`
+        `http://vue.local/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`
       );
       return data;
     }

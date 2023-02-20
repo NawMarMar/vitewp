@@ -3,6 +3,7 @@
 import { ref, watchEffect } from "vue";
 import { usePostStore } from "../../stores/post";
 import { useRoute } from 'vue-router';
+import axios from 'axios';
 
 const route = useRoute()
 
@@ -35,10 +36,12 @@ watchEffect(() => {
       <p class="author-name">{{post.custom_fields.name}}</p>
       <p class="description">{{post.custom_fields.description}}</p>
     </div>
-    
   </template>
   <template v-else>Loading...</template>
+
+  
 </template>
+
 
 <style lang="scss" scoped>
 .page-content {
